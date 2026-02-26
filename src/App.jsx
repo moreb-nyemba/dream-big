@@ -158,7 +158,7 @@ function App() {
 
       <section className="grid" aria-live="polite">
         {ordered.map((meme, index) => (
-          <MemeCard key={meme.title + index} meme={meme} onCopy={copyLink} isSpotlight={index === 0} />
+          <MemeCard key={meme.title} meme={meme} onCopy={copyLink} isSpotlight={index === 0} />
         ))}
         {!ordered.length && (
           <div className="empty">
