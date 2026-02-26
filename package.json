@@ -1,0 +1,37 @@
+{
+  "name": "dream-big",
+  "version": "1.0.0",
+  "description": "Modern meme gallery built with Vite + React.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"No tests specified\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moreb-nyemba/dream-big.git"
+  },
+  "keywords": [
+    "memes",
+    "gallery",
+    "react",
+    "vite"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moreb-nyemba/dream-big/issues"
+  },
+  "homepage": "https://github.com/moreb-nyemba/dream-big#readme",
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.1.4",
+    "vite": "^7.3.1"
+  }
+}
