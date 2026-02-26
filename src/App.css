@@ -9,6 +9,12 @@
   margin: 0 auto;
 }
 
+.nav-tabs {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
 .hero {
   display: flex;
   flex-direction: column;

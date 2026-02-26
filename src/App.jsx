@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { memes } from "./data/memes";
+import MemeStudio from "./MemeStudio";
 import "./App.css";
 
 const vibes = [
@@ -48,6 +49,7 @@ function MemeCard({ meme, onCopy, isSpotlight }) {
 }
 
 function App() {
+  const [view, setView] = useState("gallery");
   const [query, setQuery] = useState("");
   const [vibeFilter, setVibeFilter] = useState("all");
   const [spotlight, setSpotlight] = useState(memes[0]);
@@ -105,74 +107,95 @@ function App() {
 
   return (
     <main className="page">
-      <header className="hero">
-        <p className="pill pill--soft">Dream Big · Meme lab</p>
-        <div className="hero__title">
-          <h1>Build the perfect meme drop</h1>
-          <p className="lede">
-            A modern, lightweight meme repository with curated classics, chaotic bangers, and
-            wholesome vibes ready to remix.
-          </p>
-        </div>
-        <div className="hero__controls">
-          <div className="input">
-            <span>🔍</span>
-            <input
-              type="search"
-              placeholder="Search by title or tag…"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-          </div>
-          <div className="vibes">
-            {vibes.map((v) => (
-              <button
-                key={v.id}
-                className={`chip ${vibeFilter === v.id ? "chip--active" : ""}`}
-                onClick={() => setVibeFilter(v.id)}
-              >
-                {v.label}
-              </button>
-            ))}
-          </div>
-          <div className="hero__actions">
-            <button className="button primary" onClick={surprise}>
-              🔀 Surprise me
-            </button>
-            <button className="button ghost" onClick={() => setVibeFilter("wholesome")}>
-              🌈 Wholesome only
-            </button>
-          </div>
-        </div>
-        <div className="hero__stats">
-          <div>
-            <p className="eyebrow">Memes curated</p>
-            <strong>{stats.total}</strong>
-          </div>
-          <div>
-            <p className="eyebrow">Vibe buckets</p>
-            <strong>{stats.vibes}</strong>
-          </div>
-          <div>
-            <p className="eyebrow">Certified classics</p>
-            <strong>{stats.classics}</strong>
-          </div>
-        </div>
-      </header>
+      <nav className="nav-tabs">
+        <button
+          className={`chip ${view === "gallery" ? "chip--active" : ""}`}
+          onClick={() => setView("gallery")}
+        >
+          🖼️ Gallery
+        </button>
+        <button
+          className={`chip ${view === "studio" ? "chip--active" : ""}`}
+          onClick={() => setView("studio")}
+        >
+          🎨 Meme Studio
+        </button>
+      </nav>
 
-      <section className="grid" aria-live="polite">
-        {ordered.map((meme, index) => (
-          <MemeCard key={meme.title} meme={meme} onCopy={copyLink} isSpotlight={index === 0} />
-        ))}
-        {!ordered.length && (
-          <div className="empty">
-            <p>No memes found. Try resetting your filters.</p>
-            <button className="button primary" onClick={() => setVibeFilter("all")}>
-              Reset filters
-            </button>
-          </div>
-        )}
-      </section>
+      {view === "gallery" ? (
+        <>
+          <header className="hero">
+            <p className="pill pill--soft">Dream Big · Meme lab</p>
+            <div className="hero__title">
+              <h1>Build the perfect meme drop</h1>
+              <p className="lede">
+                A modern, lightweight meme repository with curated classics, chaotic bangers, and
+                wholesome vibes ready to remix.
+              </p>
+            </div>
+            <div className="hero__controls">
+              <div className="input">
+                <span>🔍</span>
+                <input
+                  type="search"
+                  placeholder="Search by title or tag…"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+              </div>
+              <div className="vibes">
+                {vibes.map((v) => (
+                  <button
+                    key={v.id}
+                    className={`chip ${vibeFilter === v.id ? "chip--active" : ""}`}
+                    onClick={() => setVibeFilter(v.id)}
+                  >
+                    {v.label}
+                  </button>
+                ))}
+              </div>
+              <div className="hero__actions">
+                <button className="button primary" onClick={surprise}>
+                  🔀 Surprise me
+                </button>
+                <button className="button ghost" onClick={() => setVibeFilter("wholesome")}>
+                  🌈 Wholesome only
+                </button>
+              </div>
+            </div>
+            <div className="hero__stats">
+              <div>
+                <p className="eyebrow">Memes curated</p>
+                <strong>{stats.total}</strong>
+              </div>
+              <div>
+                <p className="eyebrow">Vibe buckets</p>
+                <strong>{stats.vibes}</strong>
+              </div>
+              <div>
+                <p className="eyebrow">Certified classics</p>
+                <strong>{stats.classics}</strong>
+              </div>
+            </div>
+          </header>
+
+          <section className="grid" aria-live="polite">
+            {ordered.map((meme, index) => (
+              <MemeCard key={meme.title} meme={meme} onCopy={copyLink} isSpotlight={index === 0} />
+            ))}
+            {!ordered.length && (
+              <div className="empty">
+                <p>No memes found. Try resetting your filters.</p>
+                <button className="button primary" onClick={() => setVibeFilter("all")}>
+                  Reset filters
+                </button>
+              </div>
+            )}
+          </section>
+        </>
+      ) : (
+        <MemeStudio />
+      )}
 
       {toast && <div className="toast">{toast}</div>}
     </main>

@@ -2,3 +2,10 @@ node_modules
 dist
 .DS_Store
 *.log
+
+# Django
+backend/db.sqlite3
+backend/media/
+__pycache__
+*.pyc
+*.pyo
