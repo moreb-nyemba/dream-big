@@ -66,8 +66,12 @@ function App() {
   }, [query, vibeFilter]);
 
   const ordered = useMemo(() => {
-    const withoutSpotlight = filtered.filter((meme) => meme.title !== spotlight.title);
-    return [spotlight, ...withoutSpotlight];
+    const spotlightInFiltered = filtered.some((meme) => meme.title === spotlight.title);
+    if (spotlightInFiltered) {
+      const withoutSpotlight = filtered.filter((meme) => meme.title !== spotlight.title);
+      return [spotlight, ...withoutSpotlight];
+    }
+    return filtered;
   }, [filtered, spotlight]);
 
   const stats = useMemo(() => {
